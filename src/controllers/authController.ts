@@ -11,7 +11,7 @@ export const register = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -24,6 +24,7 @@ export const register = async (
       username,
       email,
       password: hashedPassword,
+      role: role || "user",
     });
 
     await user.save();

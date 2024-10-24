@@ -35,6 +35,7 @@ router.post(
   }
 );
 
+// Login Route
 router.post("/login", login);
 
 // Route to get all users

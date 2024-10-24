@@ -5,7 +5,10 @@ import dotenv from "dotenv";
 dotenv.config();
 
 interface AuthRequest extends Request {
-  user?: any;
+  user?: {
+    id: string;
+    role: string;
+  };
 }
 
 export const protect = async (
@@ -20,7 +23,12 @@ export const protect = async (
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as {
+      id: string;
+      role: string;
+    };
+
+    // Attach user data to the request
     req.user = decoded;
     next();
   } catch (error) {
@@ -37,4 +45,17 @@ export const admin = (
     return res.status(403).json({ error: "Access denied" });
   }
   next();
+};
+
+// Role-checking middleware
+export const isAdmin = (
+  req: AuthRequest,
+  res: Response,
+  next: NextFunction
+): any => {
+  if (req.user && req.user.role === "admin") {
+    next();
+  } else {
+    return res.status(403).json({ message: "Access denied, admin only" });
+  }
 };

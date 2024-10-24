@@ -1,6 +1,12 @@
 import express, { Request, Response } from "express"; // Import Request and Response types
 import { check, validationResult } from "express-validator";
-import { register, login, getAllUsers } from "../controllers/authController";
+import {
+  register,
+  login,
+  getAllUsers,
+  deleteUser,
+} from "../controllers/authController";
+import { protect, admin, isAdmin } from "../middlewares/authMiddleware";
 
 const router = express.Router();
 
@@ -32,6 +38,9 @@ router.post(
 router.post("/login", login);
 
 // Route to get all users
-router.get("/", getAllUsers);
+router.get("/", protect, isAdmin, getAllUsers);
+
+// Delete user by id
+router.delete("/delete/:id", protect, admin, deleteUser);
 
 export default router;

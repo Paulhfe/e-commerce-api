@@ -1,7 +1,3 @@
-Here's an updated version of the `README.md` file that includes the code examples for registering and logging in as a user, as well as adding a user with an admin role:
-
----
-
 # E-commerce API
 
 This is an E-commerce API built with Node.js, Express, and MongoDB, providing functionality for user authentication, category and product management, and admin-only operations.
@@ -153,6 +149,7 @@ This will create a new user with the default role of "user". The API will return
 
 To log in as a user, use the following code snippet:
 
+```javascript
 // POST /api/auth/login
 {
   "email": "user123@example.com",
@@ -202,12 +199,9 @@ Feel free to contribute to this project by opening issues or submitting pull req
 
 ---
 
-Let me know if you need any adjustments or additional details!
-
 ## Additional Notes
 
 - **Node version**: Ensure you have Node.js installed (recommended version: LTS)
 - **Dependencies**: All dependencies can be installed with `npm install`.
-- **TypeScript Compilation**: TypeScript files are compiled into the `dist` folder.
 
 ---
